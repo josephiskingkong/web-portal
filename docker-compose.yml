@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+    backend:
+        build: .
+        container_name: web-portal-backend
+        ports:
+            - '5050:5050'
+        depends_on:
+            - mongo
+        environment:
+            - NODE_ENV=production
+            - PORT=5050
+            - MONGO_URI=mongodb://mongo:27017/mydatabase
+
+    mongo:
+        image: mongo:6
+        container_name: web-portal-mongo
+        ports:
+            - '27017:27017'
+        volumes:
+            - mongo-data:/data/db
+
+volumes:
+    mongo-data:
