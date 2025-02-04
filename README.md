@@ -35,7 +35,9 @@ PORT=5050
 
 ## 🚀 **Running the Server**
 ### 1️⃣ Start the server in development mode
+```bash
 npm run dev
+```
 
 The API will be available at `http://localhost:5050`.
 
