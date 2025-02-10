@@ -30,12 +30,14 @@ Create a `.env` file in the project root and configure the following:
 ```dotenv
 MONGO_URI="mongodb://mongo:27017/mydatabase"
 JWT_SECRET="supersecret"
-PORT=5000
+PORT=5050
 ```
 
 ## 🚀 **Running the Server**
 ### 1️⃣ Start the server in development mode
+```bash
 npm run dev
+```
 
 The API will be available at `http://localhost:5050`.
 
