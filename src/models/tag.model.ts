@@ -15,4 +15,4 @@ const TagSchema = new Schema<ITag>({
 	createdAt: { type: Date, default: Date.now },
 });
 
-export const Tag = mongoose.model<ITag>('Course', TagSchema);
+export const Tag = mongoose.model<ITag>('Tag', TagSchema);
