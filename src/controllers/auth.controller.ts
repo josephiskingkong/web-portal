@@ -5,40 +5,38 @@ import bcrypt from 'bcrypt';
 import { ENV } from '../config/env';
 
 export const register = async (req: Request, res: Response) => {
-  try {
-    const user = await UserService.registerUser(req.body);
-    res.status(201).json({ message: 'User created', user });
-  } catch (error: any) {
-    res.status(400).json({ error: error.message });
-  }
+	try {
+		const user = await UserService.registerUser(req.body);
+		res.status(201).json({ message: 'User created', user });
+	} catch (error: any) {
+		res.status(400).json({ error: error.message });
+	}
 };
 
 export const login = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const { login, password } = req.body;
+	try {
+		const { login, password } = req.body;
 
-    const user = await UserService.findUserByLogin(login);
-    if (!user) {
-      res.status(404).json({ error: "User not found" });
-      return;
-    }
+		const user = await UserService.findUserByLogin(login);
+		if (!user) {
+			res.status(404).json({ error: 'User not found' });
+			return;
+		}
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      res.status(401).json({ error: "Incorrect password" });
-      return;
-    }
+		const isMatch = await bcrypt.compare(password, user.password);
+		if (!isMatch) {
+			res.status(401).json({ error: 'Incorrect password' });
+			return;
+		}
 
-    const token = jwt.sign(
-      { id: user._id.toString(), role: user.role },
-      ENV.JWT_SECRET,
-      { expiresIn: "7d" }
-    );
+		const token = jwt.sign({ id: user._id.toString(), role: user.role }, ENV.JWT_SECRET, {
+			expiresIn: '7d',
+		});
 
-    const userWithoutPassword = { ...user.toObject(), password: undefined };
-    res.status(200).json({ token, user: userWithoutPassword });
-  } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : "Unkown error";
-    res.status(500).json({ error: errorMessage });
-  }
+		const userWithoutPassword = { ...user.toObject(), password: undefined };
+		res.status(200).json({ token, user: userWithoutPassword });
+	} catch (error) {
+		const errorMessage = error instanceof Error ? error.message : 'Unkown error';
+		res.status(500).json({ error: errorMessage });
+	}
 };
