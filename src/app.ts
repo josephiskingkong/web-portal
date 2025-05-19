@@ -8,6 +8,8 @@ import userRoutes from './routes/user.routes';
 import courseRoutes from './routes/course.routes';
 import storageRoutes from './routes/storage.routes';
 import tagRoutes from './routes/tag.routes';
+import lessonRoutes from './routes/lesson.routes';
+import commentRoutes from './routes/comment.routes';
 
 import { setupSwagger } from './config/swagger';
 
@@ -24,6 +26,8 @@ app.use('/api/users', userRoutes);
 app.use('/api/courses', courseRoutes);
 app.use('/api/storage', storageRoutes);
 app.use('/api/tags', tagRoutes);
+app.use('/api/lessons', lessonRoutes);
+app.use('/api/comments', commentRoutes);
 
 app.use((req, res) => {
 	res.status(404).json({ error: 'Method not found' });
