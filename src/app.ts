@@ -5,6 +5,11 @@ import { connectDB } from './config/database';
 
 import authRoutes from './routes/auth.routes';
 import userRoutes from './routes/user.routes';
+import courseRoutes from './routes/course.routes';
+import storageRoutes from './routes/storage.routes';
+import tagRoutes from './routes/tag.routes';
+import lessonRoutes from './routes/lesson.routes';
+import commentRoutes from './routes/comment.routes';
 
 import { setupSwagger } from './config/swagger';
 
@@ -18,12 +23,17 @@ app.use(express.json());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/courses', courseRoutes);
+app.use('/api/storage', storageRoutes);
+app.use('/api/tags', tagRoutes);
+app.use('/api/lessons', lessonRoutes);
+app.use('/api/comments', commentRoutes);
 
 app.use((req, res) => {
 	res.status(404).json({ error: 'Method not found' });
 });
 
-app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+app.use((err: any, req: express.Request, res: express.Response) => {
 	console.error(err.stack);
 	res.status(500).json({ error: 'Internal server error' });
 });

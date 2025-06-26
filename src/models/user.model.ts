@@ -7,6 +7,7 @@ export interface IUser extends Document {
 	login: string;
 	password: string;
 	role: 'student' | 'teacher';
+	favoriteCourses: mongoose.Types.ObjectId[];
 }
 
 const UserSchema = new Schema<IUser>({
@@ -15,6 +16,7 @@ const UserSchema = new Schema<IUser>({
 	login: { type: String, required: true, unique: true },
 	password: { type: String, required: true },
 	role: { type: String, enum: ['student', 'teacher'], required: true },
+	favoriteCourses: [{ type: Schema.Types.ObjectId, ref: 'Course' }],
 });
 
 export const User = mongoose.model<IUser>('User', UserSchema);
